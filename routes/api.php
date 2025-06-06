@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HelpdeskController;
 use App\Http\Controllers\PasswordResetController;
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -17,3 +18,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/events/{id}', [EventController::class, 'update']);
     Route::delete('/events/{id}', [EventController::class, 'destroy']);
 });
+
+Route::post('/helpdesk', [HelpdeskController::class, 'handle']);
