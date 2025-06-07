@@ -12,42 +12,48 @@ class HelpdeskController extends Controller
 
         if (!$message || strlen($message) < 3) {
             return response()->json([
-                'answer' => 'Could you please rephrase your question?'
+                'answer' => 'Could you please provide more details about your question?'
             ]);
         }
 
-        if (preg_match('/(human|talk|agent|real person)/', $message)) {
+        // Emberi operátor kérése
+        if (preg_match('/\b(human|talk|agent|real person|operator|support)\b/', $message)) {
             return response()->json([
-                'answer' => 'Sure, transferring you to a human operator...'
+                'answer' => 'Certainly. I will connect you with a support agent shortly.'
             ]);
         }
 
-        if (preg_match('/(create|add).*event/', $message)) {
+        // Esemény létrehozása
+        if (preg_match('/\b(create|add).*(event)\b/', $message)) {
             return response()->json([
-                'answer' => 'You can create an event by clicking the "Add Event" button and filling out the form.'
+                'answer' => 'To create a new event, please navigate to the dashboard and click on the "Add Event" button.'
             ]);
         }
 
-        if (preg_match('/(delete|remove).*event/', $message)) {
+        // Esemény törlése
+        if (preg_match('/\b(delete|remove).*(event)\b/', $message)) {
             return response()->json([
-                'answer' => 'To delete an event, go to the event details and press the delete button.'
+                'answer' => 'To delete an event, open the event details and click the "Delete" option.'
             ]);
         }
 
-        if (preg_match('/(my events|where.*events|see.*events)/', $message)) {
+        // Saját események lekérdezése
+        if (preg_match('/\b(my events|see events|where.*events)\b/', $message)) {
             return response()->json([
-                'answer' => 'You can see all your events on your dashboard after logging in.'
+                'answer' => 'You can view your upcoming events in your personal dashboard after logging in.'
             ]);
         }
 
-        if (preg_match('/(occurs|date|time field)/', $message)) {
+        // Dátum/idő mező magyarázat
+        if (preg_match('/\b(occurs at|date|time|scheduled)\b/', $message)) {
             return response()->json([
-                'answer' => 'The "occurs at" field indicates when the event is scheduled to take place.'
+                'answer' => 'The "Occurs at" field specifies when your event is planned to take place.'
             ]);
         }
 
+        // Általános válasz
         return response()->json([
-            'answer' => 'Sorry, I didn\'t understand. Could you please rephrase your question?'
+            'answer' => 'I\'m sorry, I wasn’t able to understand your request. Could you please rephrase or clarify your question?'
         ]);
     }
 }
