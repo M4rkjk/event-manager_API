@@ -18,6 +18,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/events', [EventController::class, 'store']);
     Route::put('/events/{id}', [EventController::class, 'update']);
     Route::delete('/events/{id}', [EventController::class, 'destroy']);
+
+    Route::get('/me', function (Request $request) {
+        return response()->json([
+            'name' => $request->user()->name
+        ]);
+    });
 });
 
 Route::post('/helpdesk', [HelpdeskController::class, 'handle']);
