@@ -26,14 +26,14 @@ class HelpdeskController extends Controller
         // Esemény létrehozása
         if (preg_match('/\b(create|add).*(event)\b/', $message)) {
             return response()->json([
-                'answer' => 'To create a new event, please navigate to the dashboard and click on the "Add Event" button.'
+                'answer' => 'To create a new event, click the green "+ Create new event" button located in the top-right corner. This will open a form where you can easily add the event details.'
             ]);
         }
 
         // Esemény törlése
         if (preg_match('/\b(delete|remove).*(event)\b/', $message)) {
             return response()->json([
-                'answer' => 'To delete an event, open the event details and click the "Delete" option.'
+                'answer' => 'To delete an event, click the red "X" button located at the end of the event row. This will remove the event easily.'
             ]);
         }
 
@@ -50,6 +50,20 @@ class HelpdeskController extends Controller
                 'answer' => 'The "Occurs at" field specifies when your event is planned to take place.'
             ]);
         }
+
+        // Bejelentkezésre vonatkozó kérdések
+        if (preg_match('/\b(how (do|can) I log in|how to log in|login help|sign in)\b/', $message)) {
+            return response()->json([
+                'answer' => 'To log in, click the "Login" button at the top right of the page and enter your credentials.'
+            ]);
+        }
+
+        if (preg_match('/\b(how (do|can) I log out|how to log out|logout|sign out)\b/', $message)) {
+            return response()->json([
+                'answer' => 'To log out, click the logout button at the top right corner!'
+            ]);
+        }
+
 
         // Általános válasz
         return response()->json([
