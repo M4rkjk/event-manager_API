@@ -52,18 +52,18 @@ class HelpdeskController extends Controller
         }
 
         // Bejelentkezésre vonatkozó kérdések
-        if (preg_match('/\b(how (do|can) I log in|how to log in|login help|sign in)\b/', $message)) {
+        if (preg_match('/(how (do|can) I log in|how to log in|login help|sign in)/i', $message)) {
             return response()->json([
                 'answer' => 'To log in, click the "Login" button at the top right of the page and enter your credentials.'
             ]);
         }
 
-        if (preg_match('/\b(how (do|can) I log out|how to log out|logout|sign out)\b/', $message)) {
+        //Kijelentkezésre vonatkozó kérdések
+        if (preg_match('/(how (do|can) I log out|how to log out|logout|sign out)/i', $message)) {
             return response()->json([
                 'answer' => 'To log out, click the logout button at the top right corner!'
             ]);
         }
-
 
         // Általános válasz
         return response()->json([
