@@ -18,10 +18,15 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
-            return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
+        ResetPassword::createUrlUsing(function ($notifiable, $token) {
+            $frontendUrl = config('app.frontend_url');
+            $email = urlencode($notifiable->getEmailForPasswordReset());
+
+            return "{$frontendUrl}/restore-password-form?token={$token}&email={$email}";
         });
     }
+
+
 }

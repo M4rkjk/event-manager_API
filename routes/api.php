@@ -9,6 +9,7 @@ use App\Http\Controllers\PasswordResetController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/reset-password', [PasswordResetController::class, 'reset']);
+Route::post('/reset-password-link', [PasswordResetController::class, 'sendResetLinkEmail']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
